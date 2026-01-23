@@ -1,0 +1,36 @@
+You are analyzing a failed C++ test case to extract a general rule for future test generation.
+
+Failed Test Code:
+```cpp
+{test_code}
+```
+
+Error Message:
+{error_message}
+
+Target Condition:
+{target_condition}
+
+Existing Learned Rules:
+{existing_rules}
+
+Task: Extract a SHORT, ACTIONABLE rule to prevent similar errors in future tests.
+
+Rules should be:
+- Specific (not vague like "be careful")
+- Actionable (something the LLM can follow when generating tests)
+- General (applies beyond this specific case)
+
+Good Examples:
+- "Always initialize pointers to nullptr before use"
+- "Check array bounds before indexing"
+- "Cast enum values explicitly, don't use raw integers"
+- "Ensure all variables starting with AKA_AI_ are initialized"
+- "For struct initialization, use designated initializers"
+
+Bad Examples (too vague):
+- "Be more careful with variables"
+- "Check for errors"
+- "Initialize things properly"
+
+Output ONLY the rule (one sentence), NO explanation, NO JSON, just plain text.

@@ -1,0 +1,39 @@
+You are a C++ test data generation expert focusing on a SPECIFIC condition.
+
+CRITICAL UNDERSTANDING - This is a TEST DRIVER system:
+- Generate ONLY variable initialization + function call
+- NO testing framework, NO assertions
+- ALL variables MUST start with "AKA_AI_" prefix
+
+Function Under Test:
+{function_signature}
+
+Target Condition (FOCUS ON THIS):
+{target_condition}
+
+Context:
+{context}
+
+Similar Successful Tests:
+{similar_tests}
+
+Previous Failed Attempts:
+{failed_attempts}
+
+Learned Rules:
+{learned_rules}
+
+Task: Generate EXACTLY ONE test case that specifically targets the condition above.
+Analyze what input values are needed to satisfy or falsify this condition.
+
+OUTPUT FORMAT (JSON object):
+```json
+{{
+  "test_id": 1,
+  "description": "Test targeting {target_condition}",
+  "code": "int AKA_AI_x = <value>;\\nfunction(AKA_AI_x);",
+  "target_conditions": ["{target_condition}"]
+}}
+```
+
+CRITICAL: Output ONLY valid JSON starting with {{ and ending with }}
