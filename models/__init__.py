@@ -1,1 +1,3 @@
-"""Pydantic models for request/response schemas."""
+"""
+Model package initialization.
+"""

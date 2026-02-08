@@ -1,0 +1,76 @@
+planning_task:
+  description: >
+    Review the list of uncovered conditions provided:
+    {uncovered_conditions}
+
+    The current Function Under Test is:
+    {function_code}
+
+    Select ONE condition to target for the next test case.
+    Prioritize conditions that are:
+    1. Independent (not nested deep in unreachable logic).
+    2. Easy to control via input parameters.
+
+    Output the Target Condition ID, the Condition Text, and the required value (True/False).
+  expected_output: >
+    A structured goal: { "target_id": "...", "condition": "x > 5", "goal": "FALSE (force x <= 5)", "reasoning": "..." }
+  agent: planner
+
+generation_task:
+  description: >
+    Generate a test input body to satisfy this goal:
+    {target_goal}
+
+    The Function Signature is:
+    {function_signature}
+
+    Source Code Context:
+    {function_code}
+
+    RULES:
+    1. Do NOT write a full test function, main(), or includes.
+    2. Write ONLY the variable initialization and the function call.
+    3. Prefix all variable names with 'AKA_AI_' to avoid collisions.
+    4. Start with a reasoning step explaining how you will reach the target condition.
+    5. End your response with the keyword 'ANSWER:' followed by the code block.
+
+    Example Format:
+    Let's think step by step...
+    ANSWER:
+    ```cpp
+    int AKA_AI_x = 4;
+    myFunction(AKA_AI_x);
+    ```
+  expected_output: >
+    Reasoning followed by ANSWER: and the C++ code block.
+  agent: generator
+
+evaluation_task:
+  description: >
+    Review the execution result for the generated test.
+    Target Goal: {target_goal}
+    
+    Status: {execution_status}
+    Coverage Delta: {coverage_delta}
+    Logs: {execution_logs}
+
+    Determine if the goal was met. Assign a score from 0.0 to 1.0.
+    1.0 = Target Condition completely covered.
+    0.5 = Test ran but missed target.
+    0.0 = Compile Error or Crash.
+  expected_output: >
+    Evaluation Result: { "score": 1.0, "status": "SUCCESS", "feedback": "..." }
+  agent: evaluator
+
+reflection_task:
+  description: >
+    The previous test attempt failed.
+    Code: {test_code}
+    Error: {error_logs}
+    Evaluator Feedback: {evaluator_feedback}
+
+    Analyze the failure. Was it a syntax error? A logic error? An impossible constraint?
+    Provide specific instructions to the Generator on how to fix the code.
+  expected_output: >
+    Actionable advice for the next generation attempt.
+  agent: reflector

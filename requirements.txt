@@ -1,22 +1,6 @@
-# Core dependencies
-fastapi
-uvicorn
-pydantic
-pydantic-settings
+fastapi~=0.128.0
+httpx~=0.28.1
+crewai[tools]
+litellm>=1.81.6
+litellm[proxy]
 python-dotenv
-
-# LLM & AI
-crewai
-langchain
-langchain-community
-
-# HTTP client
-httpx
-
-# Logging
-python-json-logger
-
-# Development
-pytest
-pytest-asyncio
-black
